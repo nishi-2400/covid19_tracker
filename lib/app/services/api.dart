@@ -31,7 +31,7 @@ class API {
     Endpoint.cases: 'cases',
     Endpoint.casesSuspected: 'casesSuspected',
     Endpoint.casesConfirmed: 'casesConfirmed',
-    Endpoint.deaths: 'deeaths',
+    Endpoint.deaths: 'deaths',
     Endpoint.recovered: 'recovered',
   };
 }
