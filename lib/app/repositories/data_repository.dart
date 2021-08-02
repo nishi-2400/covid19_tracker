@@ -1,6 +1,7 @@
-import 'package:coronavirus_rest_api_flutter/app/repositories/endpoint_data.dart';
+import 'package:coronavirus_rest_api_flutter/app/repositories/endpoints_data.dart';
 import 'package:coronavirus_rest_api_flutter/app/services/api.dart';
 import 'package:coronavirus_rest_api_flutter/app/services/api_service.dart';
+import 'package:coronavirus_rest_api_flutter/app/services/endpoint_data.dart';
 import 'package:http/http.dart';
 
 class DataRepository {
@@ -9,13 +10,13 @@ class DataRepository {
   final APIService apiService;
   String? _accessToken;
 
-  Future<int> getEndpointData(Endpoint endpoint) async =>
-      await _getDataRefreshingToken<int>(
+  Future<EndpointData> getEndpointData(Endpoint endpoint) async =>
+      await _getDataRefreshingToken<EndpointData>(
           onGetData: () => apiService.getEndpointData(
               accessToken: _accessToken!, endpoint: endpoint));
 
-  Future<EndpointData> getAllEndpointData() async =>
-      await _getDataRefreshingToken<EndpointData>(
+  Future<EndpointsData> getAllEndpointData() async =>
+      await _getDataRefreshingToken<EndpointsData>(
           onGetData: _getAllEndpointData);
 
   Future<T> _getDataRefreshingToken<T>(
@@ -34,7 +35,7 @@ class DataRepository {
     }
   }
 
-  Future<EndpointData> _getAllEndpointData() async {
+  Future<EndpointsData> _getAllEndpointData() async {
     final values = await Future.wait([
       apiService.getEndpointData(
           accessToken: _accessToken!, endpoint: Endpoint.cases),
@@ -48,7 +49,7 @@ class DataRepository {
           accessToken: _accessToken!, endpoint: Endpoint.recovered)
     ]);
 
-    return EndpointData(
+    return EndpointsData(
       {
         Endpoint.cases: values[0],
         Endpoint.casesSuspected: values[1],
