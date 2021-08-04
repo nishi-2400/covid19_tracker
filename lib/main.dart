@@ -3,9 +3,13 @@ import 'package:coronavirus_rest_api_flutter/app/services/api.dart';
 import 'package:coronavirus_rest_api_flutter/app/services/api_service.dart';
 import 'package:coronavirus_rest_api_flutter/app/ui/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
-void main() {
+void main() async {
+  Intl.defaultLocale = 'ja_JP';
+  await initializeDateFormatting();
   runApp(MyApp());
 }
 
