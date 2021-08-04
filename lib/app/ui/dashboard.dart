@@ -28,6 +28,8 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final formatter = LastUpdatedDataFormatter(
+        lastUpdated: _endpointsData!.values[Endpoint.cases]!.date);
     return Scaffold(
       appBar: AppBar(
         title: Text('Corona virus tracker'),
@@ -36,12 +38,7 @@ class _DashboardState extends State<Dashboard> {
         onRefresh: _updateData,
         child: ListView(
           children: [
-            LastUpdatedStatusText(
-                text: _endpointsData != null
-                    ? _endpointsData!.values[Endpoint.cases]!.date
-                            ?.toString() ??
-                        ''
-                    : ''),
+            LastUpdatedStatusText(text: formatter.lastUpdatedStatusText()),
             for (var endpoint in Endpoint.values)
               EndpointCard(
                 endpoint: endpoint,
